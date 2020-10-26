@@ -45,6 +45,10 @@ transporter.verify(function(error, success) {
   }
 });
 
+app.get('/', function(req, res) {
+  res.send('hello world');
+});
+         
 app.post('/access', (req, res, next) => {
   var email = req.body.email
   var message = req.body.message
