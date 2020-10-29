@@ -58,17 +58,28 @@ app.get('/test-nodemailer', function(req, res) {
   })
 });
 
-app.post('/access', (req, res, next) => {
-  var email = req.body.email
-  var message = req.body.message
-
-  var mail = {
-    from: '', 
-    to: name, 
+app.post('/sendmailer', (req, res, next) => {
+  transporter.sendMail({
+    from: 'webreznov.landing@gmail.com', 
+    to: 'sharkercool@mail.ru', 
     subject: 'nodemailer check send',
     text: 'Hi bro this is test nodemailer'
-  }
+  }, (err, data) => {
+    if (err) {
+      res.send('error nodemailer sendMail func')
+      res.json({
+        status: 'error oops'
+      })
+    } else {
+      res.send('alright');
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+})
 
+app.post('/access', (req, res, next) => {
   transporter.sendMail(mail, (err, data) => {
     if (err) {
       res.json({
