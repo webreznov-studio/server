@@ -80,7 +80,12 @@ app.post('/sendmailer', (req, res, next) => {
 })
 
 app.post('/access', (req, res, next) => {
-  transporter.sendMail(mail, (err, data) => {
+  transporter.sendMail({
+    from: req.body.email, 
+    to: 'webreznov.landing@gmail.com', 
+    subject: 'nodemailer check send',
+    text: req.body.message
+  }, (err, data) => {
     if (err) {
       res.json({
         status: 'fail. Sorry, mail not send'
