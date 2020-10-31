@@ -27,59 +27,59 @@ transporter.verify(function(error, success) {
   }
 });
 
-app.get('/', function(req, res) {
-  res.send('hello world');
-});
+// app.get('/', function(req, res) {
+//   res.send('hello world');
+// });
 
-app.get('/test-nodemailer', function(req, res) {
-  var email = 'sharkercool@mail.ru'
-  var message = 'text test nodemailer check this'
-  var content = `email: ${email} \n message: ${message} `
+// app.get('/test-nodemailer', function(req, res) {
+//   var email = 'sharkercool@mail.ru'
+//   var message = 'text test nodemailer check this'
+//   var content = `email: ${email} \n message: ${message} `
 
-  var mail = {
-    from: 'webreznov.landing@gmail.com', 
-    to: 'sharkercool@mail.ru', 
-    subject: 'nodemailer check send',
-    text: 'Hi bro this is test nodemailer'
-  }
+//   var mail = {
+//     from: 'webreznov.landing@gmail.com', 
+//     to: 'sharkercool@mail.ru', 
+//     subject: 'nodemailer check send',
+//     text: 'Hi bro this is test nodemailer'
+//   }
 
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.send('error nodemailer sendMail func')
-      res.json({
-        status: 'error oops'
-      })
-    } else {
-      res.send('alright');
-      res.json({
-       status: 'success'
-      })
-    }
-  })
-});
+//   transporter.sendMail(mail, (err, data) => {
+//     if (err) {
+//       res.send('error nodemailer sendMail func')
+//       res.json({
+//         status: 'error oops'
+//       })
+//     } else {
+//       res.send('alright');
+//       res.json({
+//        status: 'success'
+//       })
+//     }
+//   })
+// });
+
+// app.post('/sendmailer', (req, res, next) => {
+//   transporter.sendMail({
+//     from: 'webreznov.landing@gmail.com', 
+//     to: 'sharkercool@mail.ru', 
+//     subject: 'nodemailer check send',
+//     text: 'Hi bro this is test nodemailer'
+//   }, (err, data) => {
+//     if (err) {
+//       res.send('error nodemailer sendMail func')
+//       res.json({
+//         status: 'error oops'
+//       })
+//     } else {
+//       res.send('alright');
+//       res.json({
+//        status: 'success'
+//       })
+//     }
+//   })
+// })
 
 app.post('/sendmailer', (req, res, next) => {
-  transporter.sendMail({
-    from: 'webreznov.landing@gmail.com', 
-    to: 'sharkercool@mail.ru', 
-    subject: 'nodemailer check send',
-    text: 'Hi bro this is test nodemailer'
-  }, (err, data) => {
-    if (err) {
-      res.send('error nodemailer sendMail func')
-      res.json({
-        status: 'error oops'
-      })
-    } else {
-      res.send('alright');
-      res.json({
-       status: 'success'
-      })
-    }
-  })
-})
-
-app.post('/access', (req, res, next) => {
   transporter.sendMail({
     from: req.body.email, 
     to: 'webreznov.landing@gmail.com', 
