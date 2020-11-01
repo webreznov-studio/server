@@ -3,6 +3,7 @@ let express = require('express');
 let app = express();
 const path = require('path');
 let nodemailer = require('nodemailer');
+const headerEmail = 'webreznov.landing@gmail.com';
 
 // Static folder
 app.use('/public', express.static(path.join(__dirname, 'public')));
@@ -27,77 +28,86 @@ transporter.verify(function(error, success) {
   }
 });
 
-// app.get('/', function(req, res) {
-//   res.send('hello world');
-// });
+app.get('/sendmailer-test-get', function(req, res) {
+  var email = 'sharkercool@mail.ru'
+  var message = 'text test nodemailer check this'
+  var content = `i bro this is test nodemailer\nemail: ${email} \n message: ${message} `
 
-// app.get('/test-nodemailer', function(req, res) {
-//   var email = 'sharkercool@mail.ru'
-//   var message = 'text test nodemailer check this'
-//   var content = `email: ${email} \n message: ${message} `
-
-//   var mail = {
-//     from: 'webreznov.landing@gmail.com', 
-//     to: 'sharkercool@mail.ru', 
-//     subject: 'nodemailer check send',
-//     text: 'Hi bro this is test nodemailer'
-//   }
-
-//   transporter.sendMail(mail, (err, data) => {
-//     if (err) {
-//       res.send('error nodemailer sendMail func')
-//       res.json({
-//         status: 'error oops'
-//       })
-//     } else {
-//       res.send('alright');
-//       res.json({
-//        status: 'success'
-//       })
-//     }
-//   })
-// });
-
-// app.post('/sendmailer', (req, res, next) => {
-//   transporter.sendMail({
-//     from: 'webreznov.landing@gmail.com', 
-//     to: 'sharkercool@mail.ru', 
-//     subject: 'nodemailer check send',
-//     text: 'Hi bro this is test nodemailer'
-//   }, (err, data) => {
-//     if (err) {
-//       res.send('error nodemailer sendMail func')
-//       res.json({
-//         status: 'error oops'
-//       })
-//     } else {
-//       res.send('alright');
-//       res.json({
-//        status: 'success'
-//       })
-//     }
-//   })
-// })
-
-app.post('/sendmailer', (req, res, next) => {
-  transporter.sendMail({
-    from: req.body.email, 
-    to: 'webreznov.landing@gmail.com', 
+  var mail = {
+    from: headerEmail, 
+    to: headerEmail, 
     subject: 'nodemailer check send',
-    text: req.body.message
-  }, (err, data) => {
+    text: content
+  }
+
+  transporter.sendMail(mail, (err, data) => {
     if (err) {
+      res.send('error nodemailer sendMail func')
       res.json({
-        status: 'fail. Sorry, mail not send'
+        status: 'error oops'
       })
     } else {
+      res.send('alright');
       res.json({
        status: 'success'
       })
     }
   })
-})
+});
 
+app.post('/sendmailer-test-post', function(req, res) {
+  var email = 'sharkercool@mail.ru'
+  var message = 'text test nodemailer check this'
+  var content = `i bro this is test nodemailer\nemail: ${email} \n message: ${message} `
+
+  var mail = {
+    from: headerEmail, 
+    to: headerEmail, 
+    subject: 'nodemailer check send',
+    text: content
+  }
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.send('error nodemailer sendMail func')
+      res.json({
+        status: 'error oops'
+      })
+    } else {
+      res.send('alright');
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+});
+
+app.post('/sendmailer', function(req, res) {
+  var email = req.body.email
+  var message = req.body.message
+  var content = `i bro this is test nodemailer\nemail: ${email} \n message: ${message} `
+
+  var mail = {
+    from: headerEmail, 
+    to: headerEmail, 
+    subject: 'nodemailer check send',
+    text: content
+  }
+
+  transporter.sendMail(mail, (err, data) => {
+    if (err) {
+      res.send('error nodemailer sendMail func')
+      res.json({
+        status: 'error oops'
+      })
+    } else {
+      res.send('alright');
+      res.json({
+       status: 'success'
+      })
+    }
+  })
+});
 
 const PORT = process.env.PORT || 1234
 app.listen(PORT, () => console.info(`server has started on ${PORT}`))
