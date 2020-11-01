@@ -85,8 +85,11 @@ app.post('/sendmailer-test-post', function(req, res) {
 });
 
 app.post('/sendmailer', function(req, res) {
-  var email = req.body.email
-  var message = req.body.message
+  console.log('!!!!!!!!!!!!1',req.body)
+  console.log('!!!!!!!!!!!!2',req.params)
+
+  var email = req.params.email
+  var message = req.params.message
   var content = `i bro this is test nodemailer\nemail: ${email} \n message: ${message} `
 
   var mail = {
