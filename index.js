@@ -9,13 +9,11 @@ const headerEmail = 'webreznov.landing@gmail.com';
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
-
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
@@ -36,67 +34,9 @@ transporter.verify(function(error, success) {
   }
 });
 
-app.get('/sendmailer-test-get', function(req, res) {
-  var email = 'sharkercool@mail.ru'
-  var message = 'text test nodemailer check this'
-  var content = `i bro this is test nodemailer\nemail: ${email} \n message: ${message} `
-
-  var mail = {
-    from: headerEmail, 
-    to: headerEmail, 
-    subject: 'nodemailer check send',
-    text: content
-  }
-
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.send('error nodemailer sendMail func')
-      res.json({
-        status: 'error oops'
-      })
-    } else {
-      res.send('alright');
-      res.json({
-       status: 'success'
-      })
-    }
-  })
-});
-
-app.post('/sendmailer-test-post', function(req, res) {
-  var email = 'sharkercool@mail.ru'
-  var message = 'text test nodemailer check this'
-  var content = `i bro this is test nodemailer\nemail: ${email} \n message: ${message} `
-
-  var mail = {
-    from: headerEmail, 
-    to: headerEmail, 
-    subject: 'nodemailer check send',
-    text: content
-  }
-
-  transporter.sendMail(mail, (err, data) => {
-    if (err) {
-      res.send('error nodemailer sendMail func')
-      res.json({
-        status: 'error oops'
-      })
-    } else {
-      res.send('alright');
-      res.json({
-       status: 'success'
-      })
-    }
-  })
-});
-
 app.post('/sendmailer', function(req, res) {
-  console.log('!!!!!!!!!!!!1',req.body)
-  console.log('!!!!!!!!!!!!2',req.param('email'))
-
-  var email = req.param('email')
   var message = req.param('message')
-  var content = `i bro this is test nodemailer\nemail: ${email} \n message: ${message}`
+  var content = message
 
   var mail = {
     from: headerEmail, 
